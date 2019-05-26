@@ -1,5 +1,5 @@
 from flask import jsonify, g
-from . import auths
+from app.auth import auths
 from .auth import multi_auth, basic_auth
 from app import mongo, serializer
 
@@ -7,9 +7,9 @@ from app import mongo, serializer
 @multi_auth.login_required
 @auths.route('/test')
 def hello():
-    from run import app
-    print(app.root_path)
-    print(serializer.dumps({'username': 'ww'}))
+    #from run import app
+    # print(app.root_path)
+    #print(serializer.dumps({'username': 'ww'}))
     return 'hello,world'
 
 

@@ -6,6 +6,7 @@ basic_auth = HTTPBasicAuth()
 token_auth = HTTPTokenAuth(scheme='Bearer')
 multi_auth = MultiAuth(basic_auth, token_auth)
 
+
 @basic_auth.get_password
 def get_password(userName):
     user = mongo.db.users.find_one({'name': userName})
@@ -13,6 +14,7 @@ def get_password(userName):
         return None
     g.user = user['name']
     return user['pwd']
+
 
 @token_auth.verify_token
 def verify_token(token):
