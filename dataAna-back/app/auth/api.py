@@ -2,6 +2,7 @@ from flask import jsonify, request, g
 from . import auths
 from app import mongo, serializer
 from app.auth.auth import multi_auth
+import json
 
 @auths.route('/login', methods=['GET', 'POST'])
 @multi_auth.login_required
@@ -77,4 +78,10 @@ def update_user(name):
 def delete_user(name):
     user = mongo.db.users.find_one({"name": name})
     mongo.db.users.remove({'name': name})
+    return jsonify({'results': True})
+
+@auths.route('/save_error_logger', methods=['POST'])
+def save_error_logger():
+    data = json.loads(request.data)
+    print(data)
     return jsonify({'results': True})
